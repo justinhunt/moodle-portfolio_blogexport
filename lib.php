@@ -97,7 +97,6 @@ class portfolio_plugin_blogexport extends portfolio_plugin_push_base {
 						}
 						$currentfile++;
 					}
-					//$content .="xCOUNT:" . count($this->exporter->get_tempfiles());
 					
 					//first we get the dir in zip that attached files are stored in
 					$pformat = $this->exporter->get('format');
@@ -288,7 +287,7 @@ class portfolio_plugin_blogexport extends portfolio_plugin_push_base {
         return array('def_postheading', 'def_postprivacy');
     }
 	
-	//moodle 2.2 requires function this NOT be static
+	//moodle 2.2 requires this function NOT be static
     public static function admin_config_form(&$mform) {
 		$mform->addElement('text', 'def_postheading', get_string('defaultpostheading', 'portfolio_blogexport'));
 		$mform->setDefault('def_postheading', get_string('defaultheading', 'portfolio_blogexport'));

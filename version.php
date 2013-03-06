@@ -18,7 +18,7 @@
  * Version details
  *
  * @package    portfolio
- * @subpackage @TEMPLATE_SUB_NAME@
+ * @subpackage portfolio_blogexport
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
