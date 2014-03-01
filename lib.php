@@ -218,7 +218,7 @@ class portfolio_plugin_blogexport extends portfolio_plugin_push_base {
 	private function make_entry($attachmentcount){
 			global $CFG,$COURSE;
 			
-			$sitecontext = get_context_instance(CONTEXT_SYSTEM);
+			$sitecontext = context_system::instance();
 			$courseid = $COURSE->id;
 			$modid=0;//lets just use zero for now
 			$entry  = new stdClass();
@@ -236,7 +236,7 @@ class portfolio_plugin_blogexport extends portfolio_plugin_push_base {
 		global $CFG, $USER;
 		
 			$fs = get_file_storage();
-			$sitecontext = get_context_instance(CONTEXT_SYSTEM);
+			$sitecontext = context_system::instance();
 			
 			//make our filerecord
 			$record = new stdClass();
@@ -291,11 +291,13 @@ class portfolio_plugin_blogexport extends portfolio_plugin_push_base {
     public static function admin_config_form(&$mform) {
 		$mform->addElement('text', 'def_postheading', get_string('defaultpostheading', 'portfolio_blogexport'));
 		$mform->setDefault('def_postheading', get_string('defaultheading', 'portfolio_blogexport'));
+		$mform->setType('def_postheading',PARAM_RAW_TRIMMED);
 		
 		//post privacy
 		$privacyoptions = self::get_options('privacy');
 		$mform->addElement('select', 'def_postprivacy', get_string('defaultpostprivacy', 'portfolio_blogexport'), $privacyoptions);
 		$mform->setDefault('def_postprivacy', 'public');
+		
 		
 		//rules
 		$strrequired = get_string('required');
@@ -322,6 +324,7 @@ class portfolio_plugin_blogexport extends portfolio_plugin_push_base {
 		//post heading
         $mform->addElement('text', 'plugin_postheading', get_string('postheading', 'portfolio_blogexport'));
 		$mform->setDefault('plugin_postheading', $this->get_config('def_postheading'));
+		$mform->setType('plugin_postheading',PARAM_RAW_TRIMMED);
 		//$mform->setDefault('plugin_postheading', get_string('defaultheading', 'portfolio_blogexport'));
 
 		//post privacy

@@ -23,9 +23,9 @@
  */
 
 defined('MOODLE_INTERNAL') || die();
-$plugin->version   = 2013021500;        // The current plugin version (Date: YYYYMMDDXX).
+$plugin->version   = 2014030100;        // The current plugin version (Date: YYYYMMDDXX).
 $plugin->requires  = 2012062500;        // Requires this Moodle version.
 $plugin->component = 'portfolio_blogexport'; // Full name of the plugin (used for diagnostics).
-$plugin->maturity  = MATURITY_BETA;
-$plugin->release   = '0.9.0 (Build 2013021500)';
+$plugin->maturity  = MATURITY_STABLE;
+$plugin->release   = '1.0.1 (Build 2014030100)';
 $plugin->cron      = 0;
