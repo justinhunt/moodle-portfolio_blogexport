@@ -210,8 +210,10 @@ class portfolio_plugin_blogexport extends portfolio_plugin_push_base {
         $DB->update_record('post', $entry);
         tag_set('post', $entry->id, $entry->tags);
 
-        add_to_log(SITEID, 'blog', 'update', 'index.php?userid='.$USER->id.'&entryid='.$entry->id, $entry->subject);
- 
+		//TO DO: support logging with http://docs.moodle.org/dev/Migrating_logging_calls_in_plugins in M2.7
+		if($CFG->version<2014051200){
+			add_to_log(SITEID, 'blog', 'update', 'index.php?userid='.$USER->id.'&entryid='.$entry->id, $entry->subject);
+		}
 	
 	}
 
