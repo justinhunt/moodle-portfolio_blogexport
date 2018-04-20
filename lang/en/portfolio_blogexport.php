@@ -37,3 +37,5 @@ $string['nowdate'] = 'Now Date';
 $string['originaldate'] = 'Original Date';
 $string['defaultheading'] = 'Portfolio Export';
 $string['editnow'] = 'Edit After Export';
+$string['privacy:metadata'] = 'This plugin sends data to a users blog on the same Moodle site. It does not store data locally.';
+$string['privacy:metadata:data'] = 'Personal data passed through from the portfolio subsystem.';
