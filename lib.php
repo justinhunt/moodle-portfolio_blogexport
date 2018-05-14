@@ -122,16 +122,14 @@ class portfolio_plugin_blogexport extends portfolio_plugin_push_base {
 						//initially we exported as attachment(jan/feb 2013) but this is probably incorrect. Most mods will not
 						//send unlinked files through in RichHTML, unless they are deleted files. And deleted files could be bad.
 						//We choose to not export unlinked files.  But we may need to revisit this ... Justin 15/02/2013
+
 						if($rcount>0){
 							$success = $this->send_file($file,$blogentry,"post");
-						}else{
-							//we choose not to export unlinked files.
-							//$success = $this->send_file($file,$blogentry,"attachment");
-							//$attachmentcount++;
+                            if(!$success){
+                                throw new portfolio_plugin_exception('sendfailed', 'portfolio_blogexport', $file->get_filename());
+                            }
 						}
-						if(!$success){
-							throw new portfolio_plugin_exception('sendfailed', 'portfolio_blogexport', $file->get_filename());
-						}
+
 						
 					}
 					break;
