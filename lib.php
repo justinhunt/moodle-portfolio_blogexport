@@ -70,7 +70,7 @@ class portfolio_plugin_blogexport extends portfolio_plugin_push_base {
 		//at this point we do not know if we have an html file or only "attachments"
 		$blogentry= $this->make_entry($attachmentcount);
 		if(!$blogentry){
-			throw new portfolio_plugin_exception('sendfailed', 'portfolio_blogexport', $file->get_filename());
+			throw new portfolio_plugin_exception('sendfailed', 'portfolio_blogexport', "Failed");
 		}
 		
 		$currentfile=0;//loop counter
@@ -188,12 +188,7 @@ class portfolio_plugin_blogexport extends portfolio_plugin_push_base {
 	
 	private function edit_entry($entry,$params=array()) {
 	global $CFG, $USER, $DB, $PAGE;
-		
-	/*	
-	$sitecontext = get_context_instance(CONTEXT_SYSTEM);	
-	$summaryoptions = array('subdirs'=>false, 'maxfiles'=> 99, 'maxbytes'=>$CFG->maxbytes, 'trusttext'=>true, 'context'=>$sitecontext);
-	$attachmentoptions = array('subdirs'=>false, 'maxfiles'=> 99, 'maxbytes'=>$CFG->maxbytes);
-     */
+
 
         foreach ($params as $var => $val) {
             $entry->$var = $val;
@@ -204,10 +199,12 @@ class portfolio_plugin_blogexport extends portfolio_plugin_push_base {
             $entry->add_associations();
         }
 
-        //$entry->lastmodified = time();
+        //im pretty sure this is not the right context ....
+        $sitecontext = context_system::instance();
 
         // Update record
         $DB->update_record('post', $entry);
+        core_tag_tag::set_item_tags('portfolio_blogexport','post',$entry->id,$sitecontext,$entry->tags);
         tag_set('post', $entry->id, $entry->tags);
 
 		//TO DO: support logging with http://docs.moodle.org/dev/Migrating_logging_calls_in_plugins in M2.7
@@ -220,12 +217,9 @@ class portfolio_plugin_blogexport extends portfolio_plugin_push_base {
 	private function make_entry($attachmentcount){
 			global $CFG,$COURSE;
 			
-			$sitecontext = context_system::instance();
-			$courseid = $COURSE->id;
-			$modid=0;//lets just use zero for now
+
 			$entry  = new stdClass();
 			$entry->id = null;
-			$summaryoptions = array('subdirs'=>false, 'maxfiles'=> 99, 'maxbytes'=>$CFG->maxbytes, 'trusttext'=>true, 'context'=>$sitecontext);
 		    $data=array('subject'=>'blogexportportfolio','format'=>1,'summaryformat'=>1,'publishstate'=>'draft','attachment'=>$attachmentcount);
 			$blogentry = new blog_entry(null, $data, null);
             $blogentry->add();
