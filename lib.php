@@ -205,7 +205,7 @@ class portfolio_plugin_blogexport extends portfolio_plugin_push_base {
         // Update record
         $DB->update_record('post', $entry);
         core_tag_tag::set_item_tags('portfolio_blogexport','post',$entry->id,$sitecontext,$entry->tags);
-        tag_set('post', $entry->id, $entry->tags);
+
 
 		//TO DO: support logging with http://docs.moodle.org/dev/Migrating_logging_calls_in_plugins in M2.7
 		if($CFG->version<2014051200){
